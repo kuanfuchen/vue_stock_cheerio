@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue';
 import StockIndex from './components/StockIndex.vue';
 </script>
 
@@ -12,6 +12,7 @@ import StockIndex from './components/StockIndex.vue';
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div> -->
+  <Header></Header>
   <div class="mx-auto container">
     <StockIndex class="mt-3"></StockIndex>
   </div>
