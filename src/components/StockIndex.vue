@@ -1,9 +1,8 @@
 <template>
   <div class="container">
     <div class="grid grid-cols-2 gap-2">
-      
       <div class="recentStockIndexTable">
-        <TodayStock ></TodayStock>
+        <TodayStock class="border-2 rounded border-zinc-300 px-3 py-3" :recentStock="todayStockIndex"></TodayStock>
       </div>
       <div class="card" >
         <div class="">
@@ -14,61 +13,7 @@
         </div>
       </div>
       <div class="recentStockIndexTable">
-        <table class="table-auto border-1">
-          <thead>
-            <tr class="py-1 text-gray-600">
-              <th class="px-2">日期</th>
-              <th class="px-2">大盤</th>
-              <th class="px-2">漲跌指數</th>
-              <th class="px-2">漲跌(%)</th>
-              <th class="px-2">交易量</th>
-              <th class="px-2" colspan="3">外資</th>
-              <th class="px-2" colspan="3">投信</th>
-              <th class="px-2" colspan="3">自營商</th>
-              <th class="px-2" colspan="3">三大法人</th>
-            </tr>
-            <tr class="text-center border-b-4  border-b-indigo-500 py-1 text-gray-600">
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th>買進</th>
-              <th>賣出</th>
-              <th>總共</th>
-              <th>買進</th>
-              <th>賣出</th>
-              <th>總共</th>
-              <th>買進</th>
-              <th>賣出</th>
-              <th>總共</th>
-              <th>買進</th>
-              <th>賣出</th>
-              <th>總共</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-gray-500 border-b-2 border-b-sky-300" v-for="item of recentStockIndex" :key="item.date">
-              <td class="px-2 py-1">{{ item.date }}</td>
-              <td class="px-2">{{ item.stock_points }}</td>
-              <td class="px-2">{{ item.upsAndDown }}</td>
-              <td class="px-2">{{ item.upsAndDownPercent }}</td>
-              <td class="px-2">{{ item.tradingVol }}</td>
-              <td class="px-2">{{ item.foreign_capital.buy }}</td>
-              <td class="px-2">{{ item.foreign_capital.sell }}</td>
-              <td class="px-2">{{ item.foreign_capital.total }}</td>
-              <td class="px-2">{{ item.investment_banks.buy }}</td>
-              <td class="px-2">{{ item.investment_banks.sell }}</td>
-              <td class="px-2">{{ item.investment_banks.total }}</td>
-              <td class="px-2">{{ item.dealer.buy }}</td>
-              <td class="px-2">{{ item.dealer.sell }}</td>
-              <td class="px-2">{{ item.dealer.total }}</td>
-              <td class="px-2">{{ item.institutional_investor.buy }}</td>
-              <td class="px-2">{{ item.institutional_investor.sell }}</td>
-              <td class="px-2">{{ item.institutional_investor.total }}</td>
-            </tr>
-          </tbody>
-        </table>
+        
       </div>
     </div>
   </div>
@@ -135,8 +80,15 @@
     organizeStockPerDayData(stockInfo.data)
   });
   const organizeStockPerDayData:void = (stockInfo:array)=>{
+    console.log(stockInfo, 'stockInfo');
     for(let i = 0 ; stockInfo.length > i ; i++){
-      if(i === 0) todayStockIndex.value = stockInfo[i];
+      if( i === 0 ){
+        const stockTodayIndex={ 成交均價: "12.9",成交均張: "2.8",成交張數: "5,556,554",成交筆數:"2,001,037",
+        成交金額:"2,580.21",指數:"16452.73",振幅:"0.59%",昨收:"16440.91",最低價:"16382.40",最高價:"16479.35",漲跌:"+11.82",
+        漲跌幅:"+0.07%",融券餘額:"307,805",融資餘額:"2,266.53",開盤價:"16416.54"};
+        todayStockIndex.value = stockTodayIndex;
+      }
+      // if(i === 0) todayStockIndex.value = stockInfo[i].stockTodayIndex;
       if( i > 0 ){
         let tradingVol;
         if(stockInfo[i].tradingVol){
@@ -171,6 +123,6 @@
   .recentStockIndexTable{
     margin-top: 5px;
     height:400px;
-    overflow-y:scroll;
+    overflow-y:hidden;
   }
 </style>
